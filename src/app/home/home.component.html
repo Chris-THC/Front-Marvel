@@ -1,0 +1,48 @@
+<div class="text-3xl font-bold" *ngIf="loading">Loading...</div>
+
+<div *ngIf="!loading">
+  <app-navbar></app-navbar>
+
+  <h1 class="my-5 font-bold text-center text-3xl">Lista de personajes</h1>
+
+  <!-- Grid container -->
+  <div
+    class="mx-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"
+  >
+    <div *ngFor="let character of characters">
+      <div
+        class="max-w-sm rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+      >
+        <!-- Imagen del personaje -->
+        <img
+          class="rounded-t-lg h-56 w-full object-cover transition-all duration-300 ease-in-out transform group-hover:scale-110"
+          [src]="character.thumbnail"
+          alt="{{ character.name }}"
+        />
+        <!-- Contenido de la tarjeta -->
+        <div class="px-4 py-4">
+          <h2 class="text-xl font-semibold text-center text-gray-800">
+            {{ character.name }}
+          </h2>
+          <!-- Botón de ver más información -->
+          <div class="flex justify-center items-center mt-4">
+            <button
+              class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+              (click)="openModal(character.id)"
+            >
+              Ver más información
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-modal
+  [isVisible]="isModalVisible"
+  [characterId]="characterId"
+  [character]="characterInfo"
+  (close)="isModalVisible = false"
+></app-modal>
+
+</div>

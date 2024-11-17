@@ -1,0 +1,44 @@
+<div
+  *ngIf="isVisible && character"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75"
+>
+  <div
+    class="relative bg-white rounded-lg shadow-lg p-6 w-[90%] h-[70%] max-w-5xl max-h-[90%] flex flex-col md:flex-row gap-6 overflow-y-auto"
+  >
+    <!-- Botón de cierre -->
+    <button
+      class="absolute top-2 right-2 text-red-500 hover:text-gray-700"
+      (click)="closeModal()"
+    >
+      ✖
+    </button>
+
+    <!-- Sección derecha: Información del personaje -->
+    <div class="w-full md:w-1/2 flex flex-col">
+      <div class="flex flex-col items-center">
+        <img
+          class="w-32 h-32 rounded-full mb-2 object-cover"
+          [src]="character.thumbnail"
+          alt="{{ character.name }}"
+        />
+        <h2 class="text-2xl font-bold mb-2 text-center break-words">
+          {{ character.name }}
+        </h2>
+      </div>
+      <p class="text-gray-700 text-sm font-semibold break-words text-justify">
+        {{ character.description || "No hay descripción disponible" }}
+      </p>
+    </div>
+
+    <!-- Sección izquierda: Carrusel -->
+    <div class="w-full md:w-1/2 flex flex-col items-center">
+      <h2 class="text-xl font-bold mb-4 text-center">Series</h2>
+      <div
+        class="w-full h-80 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden"
+      >
+        <!-- Carrusel de series aquí -->
+        <p>Este es el carrusel de series</p>
+      </div>
+    </div>
+  </div>
+</div>
