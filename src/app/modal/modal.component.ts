@@ -10,7 +10,8 @@ import { CommonModule } from '@angular/common';
 })
 export class ModalComponent {
   @Input() isVisible: boolean = false;
-  @Input() modalContent: number = 0;
+  @Input() characterId: number = 0;
+  @Input() character: any;
   @Output() close = new EventEmitter<void>();
 
   closeModal() {

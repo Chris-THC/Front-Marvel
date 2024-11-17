@@ -13,6 +13,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 })
 export class HomeComponent implements OnInit {
   characters: any[] = [];
+  characterInfo: any;
   loading: boolean = true;
 
   constructor(private apiCallService: ApiCallService) {}
@@ -24,7 +25,6 @@ export class HomeComponent implements OnInit {
   loadCharacters(): void {
     this.apiCallService.getCharactersList().subscribe({
       next: (response) => {
-        console.log('Characters loaded:', response.data.results);
         this.characters = response.data.results.map((character: any) => {
           return {
             id: character.id,
@@ -33,22 +33,43 @@ export class HomeComponent implements OnInit {
           };
         });
 
-        this.loading = false; // Cambiar el estado de carga a false
+        this.loading = false;
       },
       error: (error) => {
         console.error('Error loading characters:', error);
-        this.loading = false; // Cambiar el estado de carga a false en caso de error
+        this.loading = false;
       },
     });
   }
-  
+
+  loadCharactersById(characterId: number): void {
+    this.apiCallService.getCharacterById(characterId).subscribe({
+      next: (response) => {
+        const infoCharacter = response.data.results[0];
+
+        this.characterInfo = {
+          id: infoCharacter.id,
+          name: infoCharacter.name,
+          description: infoCharacter.description,
+          thumbnail: `${infoCharacter.thumbnail.path}.${infoCharacter.thumbnail.extension}`,
+          series: infoCharacter.series.items,
+        };
+
+        this.isModalVisible = true;
+      },
+      error: (error) => {
+        console.error('Error loading character:', error);
+      },
+    });
+  }
+
   isModalVisible = false;
-  modalContent = 0;
+  characterId = 0;
+  character: any;
 
   openModal(characterId: number) {
-    this.modalContent = characterId;
+    this.characterId = characterId;
+    this.loadCharactersById(characterId);
     this.isModalVisible = true;
-    console.log(this.isModalVisible);
-    
   }
 }

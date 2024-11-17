@@ -14,4 +14,8 @@ export class ApiCallService {
   getCharactersList(): Observable<any> {
     return this.httpClient.get(`${this.ApiUrl}/api/characters`).pipe();
   }
+
+  getCharacterById(characterId: number): Observable<any> {
+    return this.httpClient.get(`${this.ApiUrl}/api/characters/${characterId}`).pipe();
+  }
 }
