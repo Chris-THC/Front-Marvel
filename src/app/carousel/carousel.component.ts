@@ -12,7 +12,7 @@ import { ApiCallService } from '../core/services/api-call.service';
 export class CarouselComponent implements OnInit, OnDestroy {
   @Input() series: { id: string; name: string }[] = [];
 
-  slides: string[] = [];
+  slides: any[] = [];
   currentSlide = 0;
   intervalId: any;
 
@@ -34,10 +34,13 @@ export class CarouselComponent implements OnInit, OnDestroy {
       const idSerie = parseInt(serie.id);
       this.apiCallService.getSeriesById(idSerie).subscribe({
         next: (response) => {
-          const seriesData = response.data.results[0]; // Toma el primer resultado
+          const seriesData = response.data.results[0];
           if (seriesData && seriesData.thumbnail) {
-            const imageUrl = `${seriesData.thumbnail.path}.${seriesData.thumbnail.extension}`;
-            this.slides.push(imageUrl); // Agrega la imagen real al carrusel
+            const imageUrl = {
+              title: seriesData.title,
+              thumbnail: `${seriesData.thumbnail.path}.${seriesData.thumbnail.extension}`
+            };
+            this.slides.push(imageUrl);
           }
         },
         error: (error) => {
