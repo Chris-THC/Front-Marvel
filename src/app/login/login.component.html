@@ -1,0 +1,76 @@
+<div
+  class="flex flex-wrap min-h-screen w-full content-center justify-center bg-gray-200 py-10 px-4"
+>
+  <!-- Login component -->
+  <div class="flex flex-col sm:flex-row shadow-md w-full max-w-4xl">
+    <!-- Login form -->
+    <div
+      class="flex flex-wrap content-center justify-center rounded-t-md sm:rounded-l-md sm:rounded-tr-none bg-white w-full sm:w-1/2"
+      style="height: auto; min-height: 32rem"
+    >
+      <div class="w-72">
+        <!-- Heading -->
+        <h1 class="text-xl font-semibold text-[#0c2c4c]">Bienvenido</h1>
+        <small class="text-gray-700">Por favor, introduzca sus datos</small>
+
+        <!-- Form -->
+        <form class="mt-4">
+          <div class="mb-3">
+            <label class="mb-2 block text-xs font-semibold text-[#0c2c4c]"
+              >Nombre de usuario</label
+            >
+            <input
+              [(ngModel)]="user"
+              name="username"
+              type="text"
+              placeholder="Usuario"
+              class="block w-full rounded-md border border-gray-300 focus:border-[#154a7f] focus:outline-none focus:ring-1 focus:ring-[#154a7f] py-1 px-1.5 text-gray-500"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="mb-2 block text-xs font-semibold text-[#0c2c4c]"
+              >Contraseña</label
+            >
+            <input
+              [(ngModel)]="password"
+              name="password"
+              type="password"
+              placeholder="*****"
+              class="block w-full rounded-md border border-gray-300 focus:border-[#154a7f] focus:outline-none focus:ring-1 focus:ring-[#154a7f] py-1 px-1.5 text-gray-500"
+            />
+          </div>
+
+          <div class="mb-3">
+            <button
+              (click)="loginFunction()"
+              class="mb-1.5 block w-full text-center text-white bg-[#154a7f] hover:bg-[#0c2c4c] px-2 py-1.5 rounded-md"
+            >
+              Iniciar sesión
+            </button>
+          </div>
+        </form>
+
+        <!-- Footer -->
+        <div class="text-center">
+          <span class="text-xs text-[#154a7f] font-semibold"
+            >Introduce correctamente tus datos</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Login banner -->
+    <div
+      class="hidden sm:flex flex-wrap content-center justify-center rounded-b-md sm:rounded-r-md bg-gray-100 w-full sm:w-1/2"
+      style="height: 100px; min-height: 32rem"
+    >
+      <img
+        class="w-full h-full sm:h-auto object-cover rounded-b-md sm:rounded-r-md"
+        style="height: 100px; min-height: 32rem"
+        src="https://preview.redd.it/iuwemy7g7qxd1.jpeg?width=640&crop=smart&auto=webp&s=b0e4582dfe80a072e57d58500c2f17fec5ebc43e"
+        alt="Login Banner"
+      />
+    </div>
+  </div>
+</div>

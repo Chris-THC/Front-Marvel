@@ -1,6 +1,6 @@
-<div class="text-3xl font-bold" *ngIf="loading">Loading...</div>
+<div class="text-3xl font-bold bg-gray-200 h-screen" *ngIf="loading">Loading...</div>
 
-<div *ngIf="!loading">
+<div class="bg-gray-200" *ngIf="!loading">
   <app-navbar></app-navbar>
 
   <h1 class="my-5 font-bold text-center text-3xl">Lista de personajes</h1>
@@ -39,11 +39,10 @@
   </div>
 
   <app-modal
-  [isVisible]="isModalVisible"
-  [characterId]="characterId"
-  [character]="characterInfo"
-  [series]="series"
-  (close)="isModalVisible = false"
-></app-modal>
-
+    [isVisible]="isModalVisible"
+    [characterId]="characterId"
+    [character]="characterInfo"
+    [series]="series"
+    (close)="isModalVisible = false"
+  ></app-modal>
 </div>
