@@ -15,6 +15,10 @@ export class LoginComponent {
   user: string = '';
   password: string = '';
 
+  // Alert
+  showToast: boolean = false;
+  toastMessage: string = '';
+
   constructor(private authService: AuthService, private router: Router) {}
 
   loginFunction(): void {
@@ -24,6 +28,11 @@ export class LoginComponent {
       },
       error: (error) => {
         console.log(error);
+        this.toastMessage = 'Nombre de usuario o contraseña incorrectos.';
+        this.showToast = true;
+        setTimeout(() => {
+          this.showToast = false;
+        }, 3000);
       },
     });
   }
