@@ -18,4 +18,8 @@ export class ApiCallService {
   getCharacterById(characterId: number): Observable<any> {
     return this.httpClient.get(`${this.ApiUrl}/api/characters/${characterId}`).pipe();
   }
+
+  getSeriesById(seriesId: number): Observable<any> {
+    return this.httpClient.get(`${this.ApiUrl}/api/series/${seriesId}`).pipe();
+  }
 }

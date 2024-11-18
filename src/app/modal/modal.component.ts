@@ -14,6 +14,7 @@ export class ModalComponent {
   @Input() characterId: number = 0;
   @Input() character: any;
   @Output() close = new EventEmitter<void>();
+  @Input() series: { id: string; name: string }[] = [];
 
   closeModal() {
     this.close.emit();

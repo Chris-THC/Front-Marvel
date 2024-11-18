@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ApiCallService } from '../core/services/api-call.service';
 
 @Component({
   selector: 'app-carousel',
@@ -9,29 +10,47 @@ import { CommonModule } from '@angular/common';
   styleUrl: './carousel.component.css',
 })
 export class CarouselComponent implements OnInit, OnDestroy {
-  slides = [
-    'https://m.media-amazon.com/images/I/71LHQ1o-3HL._AC_UF894,1000_QL80_.jpg',
-    'https://i.blogs.es/6a4817/marvel-secret-wars/450_1000.webp',
-    'https://lumiere-a.akamaihd.net/v1/images/disneyplus-marvel_c169_r_46985aa3.jpeg',
-  ];
+  @Input() series: { id: string; name: string }[] = [];
+
+  slides: string[] = [];
   currentSlide = 0;
   intervalId: any;
 
+  constructor(private apiCallService: ApiCallService) {}
+
   ngOnInit() {
     this.startAutoSlide();
+    this.loadSeriesImages();
   }
 
   ngOnDestroy() {
-    // Limpia el intervalo cuando se destruya el componente
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
   }
 
+  loadSeriesImages(): void {
+    this.series.forEach((serie) => {
+      const idSerie = parseInt(serie.id);
+      this.apiCallService.getSeriesById(idSerie).subscribe({
+        next: (response) => {
+          const seriesData = response.data.results[0]; // Toma el primer resultado
+          if (seriesData && seriesData.thumbnail) {
+            const imageUrl = `${seriesData.thumbnail.path}.${seriesData.thumbnail.extension}`;
+            this.slides.push(imageUrl); // Agrega la imagen real al carrusel
+          }
+        },
+        error: (error) => {
+          console.error('Error loading series image:', error);
+        },
+      });
+    });
+  }
+
   startAutoSlide() {
     this.intervalId = setInterval(() => {
       this.nextSlide();
-    }, 1500); // Cambiar cada 8 segundos
+    }, 1500);
   }
 
   getTransformStyle() {
