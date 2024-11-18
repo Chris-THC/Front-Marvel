@@ -25,7 +25,7 @@
           {{ character.name }}
         </h2>
       </div>
-      <p class="text-gray-700 text-sm font-semibold break-words text-justify">
+      <p class="text-gray-700 text-sm font-semibold break-words text-center">
         {{ character.description || "No hay descripción disponible" }}
       </p>
     </div>
@@ -37,7 +37,7 @@
         class="w-full h-80 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden"
       >
         <!-- Carrusel de series aquí -->
-        <p>Este es el carrusel de series</p>
+        <app-carousel [series]="series"></app-carousel>
       </div>
     </div>
   </div>

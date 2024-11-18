@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   characters: any[] = [];
   characterInfo: any;
   loading: boolean = true;
+  series: { id: string; name: string }[] = [];
 
   constructor(private apiCallService: ApiCallService) {}
 
@@ -42,19 +43,45 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  // loadCharactersById(characterId: number): void {
+  //   this.apiCallService.getCharacterById(characterId).subscribe({
+  //     next: (response) => {
+  //       const infoCharacter = response.data.results[0];
+
+  //       this.characterInfo = {
+  //         id: infoCharacter.id,
+  //         name: infoCharacter.name,
+  //         description: infoCharacter.description,
+  //         thumbnail: `${infoCharacter.thumbnail.path}.${infoCharacter.thumbnail.extension}`,
+  //         series: infoCharacter.series.items,
+  //       };
+
+  //       this.isModalVisible = true;
+  //     },
+  //     error: (error) => {
+  //       console.error('Error loading character:', error);
+  //     },
+  //   });
+  // }
+
   loadCharactersById(characterId: number): void {
     this.apiCallService.getCharacterById(characterId).subscribe({
       next: (response) => {
         const infoCharacter = response.data.results[0];
-
         this.characterInfo = {
           id: infoCharacter.id,
           name: infoCharacter.name,
           description: infoCharacter.description,
           thumbnail: `${infoCharacter.thumbnail.path}.${infoCharacter.thumbnail.extension}`,
-          series: infoCharacter.series.items,
+          series: infoCharacter.series.items.map((serie: any) => ({
+            id: serie.resourceURI.split('/').pop(),
+            name: serie.name,
+          })),
         };
-
+  
+        // Enviar las series al modal
+        this.series = this.characterInfo.series;
+  
         this.isModalVisible = true;
       },
       error: (error) => {
@@ -62,6 +89,8 @@ export class HomeComponent implements OnInit {
       },
     });
   }
+  
+  
 
   isModalVisible = false;
   characterId = 0;
