@@ -77,11 +77,14 @@ export class HomeComponent implements OnInit {
             id: serie.resourceURI.split('/').pop(),
             name: serie.name,
           })),
+          comics: infoCharacter.comics.items.map((comic: any) => ({
+            name: comic.name,
+          })),
         };
-  
+
         // Enviar las series al modal
         this.series = this.characterInfo.series;
-  
+
         this.isModalVisible = true;
       },
       error: (error) => {
@@ -89,8 +92,6 @@ export class HomeComponent implements OnInit {
       },
     });
   }
-  
-  
 
   isModalVisible = false;
   characterId = 0;

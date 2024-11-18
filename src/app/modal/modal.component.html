@@ -25,9 +25,19 @@
           {{ character.name }}
         </h2>
       </div>
-      <p class="text-gray-700 text-sm font-semibold break-words text-center">
+      <p
+        class="text-gray-700 text-sm font-semibold break-words text-justify p-1"
+      >
         {{ character.description || "No hay descripción disponible" }}
       </p>
+
+      <h3 class="my-2 font-bold">Apariciones en comics</h3>
+
+      <div class="p-2" *ngFor="let comics of character.comics">
+        <p class="text-gray-700 text-sm font-semibold break-words">
+          {{ comics.name }}
+        </p>
+      </div>
     </div>
 
     <!-- Sección izquierda: Carrusel -->
